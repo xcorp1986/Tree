@@ -8,5 +8,11 @@
       "name": "kwan",
       "email": "303198069@qq.com"
     }
-  ]
+  ],
+  "require": {
+    "php": ">=5.4.0"
+  },
+  "autoload": {
+    "Cheukpang\\": ""
+  }
 }
