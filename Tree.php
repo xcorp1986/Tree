@@ -26,6 +26,12 @@ class Tree
     public $ret = '';
 
     /**
+     * 上级标识，一般持久化在数据库中
+     * @var string
+     */
+    protected $pidIdentity='pid';
+
+    /**
      * 构造函数，初始化类
      *
      * @param array $arr 2维数组，例如：
@@ -88,7 +94,7 @@ class Tree
             return false;
         }
         $newarr[] = $this->arr[$myid];
-        $pid = $this->arr[$myid]['pid'];
+        $pid = $this->arr[$myid][$this->getPidIdentity()];
         if (isset($this->arr[$pid])) {
             $this->get_pos($pid, $newarr);
         }
@@ -153,7 +159,7 @@ class Tree
         $a = $newarr = [];
         if (is_array($this->arr)) {
             foreach ($this->arr as $id => $a) {
-                if ($a['pid'] == $myid) {
+                if ($a[$this->getPidIdentity()] == $myid) {
                     $newarr[$id] = $a;
                 }
             }
@@ -354,5 +360,21 @@ class Tree
         }
 
         return json_encode($data);
+    }
+
+    /**
+     * @param string $pidIdentity
+     */
+    public function setPidIdentity(string $pidIdentity)
+    {
+        $this->pidIdentity = $pidIdentity;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPidIdentity(): string
+    {
+        return $this->pidIdentity;
     }
 }
